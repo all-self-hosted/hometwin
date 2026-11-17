@@ -1,0 +1,12 @@
+Saved product pages used by parse_test.go, fetched 2026-10-17.
+
+billy.html.gz       https://www.ikea.com/us/en/p/billy-bookcase-white-20522046/
+kivik.html.gz       https://www.ikea.com/us/en/p/kivik-sofa-tibbleby-beige-gray-s39440593/
+malm.html.gz        https://www.ikea.com/us/en/p/malm-bed-frame-dark-brown-veneer-s09574367/
+micke.html.gz       https://www.ikea.com/us/en/p/micke-desk-white-80213074/
+poang.html.gz       https://www.ikea.com/us/en/p/poaeng-armchair-birch-veneer-knisa-light-beige-s59305928/
+gb-brimnes.html.gz  https://www.ikea.com/gb/en/p/brimnes-wardrobe-with-3-doors-white-40407922/
+gb-hemnes.html.gz   https://www.ikea.com/gb/en/p/hemnes-tv-bench-white-stain-light-brown-50413526/
+cn-billy.html.gz    https://www.ikea.cn/cn/zh/p/billy-bi-li-shu-jia-bai-se-90522038/
+cn-malm.html.gz     https://www.ikea.cn/cn/zh/p/malm-ma-er-mu-liu-dou-chou-ti-gui-bai-se-40354645/
+micke-2panels.html.gz  https://www.ikea.com/us/en/p/micke-desk-white-80213074/  (fetched 2026-10-17; the live page also carries a PAX wardrobe's measurements panel before the desk's own)

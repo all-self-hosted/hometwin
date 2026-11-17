@@ -1,0 +1,12 @@
+node_modules/
+web/dist/
+server/bin/
+server/web/dist/*
+!server/web/dist/.keep
+data/
+*.log
+.DS_Store
+
+# scans and plans of a real home: kept on this machine, never in git
+server/internal/*/testdata/private/
+server/internal/*/*_private_test.go

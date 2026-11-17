@@ -1,0 +1,61 @@
+{
+  "id": "chengdu-89",
+  "name": "成都 · 两室一厅 89㎡",
+  "area": 89,
+  "wallHeight": 2.8,
+  "cutHeight": 1.2,
+  "rooms": [
+    { "id": "living", "name": "客餐厅", "kind": "living", "poly": [[3.3,1.5],[5.6,1.5],[5.6,2.2],[8.4,2.2],[8.4,8.4],[3.6,8.4],[3.6,4.6],[2.4,4.6],[2.4,3.0],[3.3,3.0]] },
+    { "id": "master", "name": "主卧", "kind": "bedroom", "poly": [[0,4.6],[3.6,4.6],[3.6,8.4],[0,8.4]] },
+    { "id": "second", "name": "次卧", "kind": "bedroom", "poly": [[0,0],[3.3,0],[3.3,3.0],[0,3.0]] },
+    { "id": "kitchen", "name": "厨房", "kind": "kitchen", "poly": [[5.6,0],[8.4,0],[8.4,2.2],[5.6,2.2]] },
+    { "id": "bath", "name": "卫生间", "kind": "bath", "poly": [[0,3.0],[2.4,3.0],[2.4,4.6],[0,4.6]] },
+    { "id": "entry", "name": "玄关", "kind": "entry", "poly": [[3.3,0],[5.6,0],[5.6,1.5],[3.3,1.5]] },
+    { "id": "balcony", "name": "阳台", "kind": "balcony", "poly": [[3.6,8.4],[8.4,8.4],[8.4,9.8],[3.6,9.8]] }
+  ],
+  "walls": [
+    { "id": "n", "a": [0,0], "b": [8.4,0], "thick": 0.24, "exterior": true },
+    { "id": "e", "a": [8.4,0], "b": [8.4,8.4], "thick": 0.24, "exterior": true },
+    { "id": "s-master", "a": [0,8.4], "b": [3.6,8.4], "thick": 0.24, "exterior": true },
+    { "id": "s-living", "a": [3.6,8.4], "b": [8.4,8.4], "thick": 0.24, "exterior": true },
+    { "id": "w", "a": [0,0], "b": [0,8.4], "thick": 0.24, "exterior": true },
+    { "id": "bal-w", "a": [3.6,8.4], "b": [3.6,9.8], "thick": 0.16, "exterior": true },
+    { "id": "bal-s", "a": [3.6,9.8], "b": [8.4,9.8], "thick": 0.16, "exterior": true },
+    { "id": "bal-e", "a": [8.4,8.4], "b": [8.4,9.8], "thick": 0.16, "exterior": true },
+    { "id": "second-e", "a": [3.3,0], "b": [3.3,3.0], "thick": 0.12 },
+    { "id": "second-s", "a": [0,3.0], "b": [3.3,3.0], "thick": 0.12 },
+    { "id": "bath-e", "a": [2.4,3.0], "b": [2.4,4.6], "thick": 0.12 },
+    { "id": "master-n", "a": [0,4.6], "b": [3.6,4.6], "thick": 0.12 },
+    { "id": "master-e", "a": [3.6,4.6], "b": [3.6,8.4], "thick": 0.12 },
+    { "id": "kitchen-w", "a": [5.6,0], "b": [5.6,2.2], "thick": 0.12 },
+    { "id": "kitchen-s", "a": [5.6,2.2], "b": [8.4,2.2], "thick": 0.12 }
+  ],
+  "doors": [
+    { "id": "entry", "name": "入户门", "wall": "n", "at": 4.45, "width": 0.96, "kind": "swing", "hinge": "a", "side": 1, "entry": true },
+    { "id": "second", "name": "次卧门", "wall": "second-s", "at": 2.82, "width": 0.8, "kind": "swing", "hinge": "b", "side": -1 },
+    { "id": "bath", "name": "卫生间门", "wall": "bath-e", "at": 0.8, "width": 0.7, "kind": "swing", "hinge": "b", "side": 1 },
+    { "id": "master", "name": "主卧门", "wall": "master-n", "at": 3.0, "width": 0.85, "kind": "swing", "hinge": "b", "side": 1 },
+    { "id": "kitchen", "name": "厨房推拉门", "wall": "kitchen-s", "at": 1.4, "width": 1.4, "kind": "sliding" },
+    { "id": "balcony", "name": "阳台推拉门", "wall": "s-living", "at": 2.4, "width": 2.4, "kind": "sliding" }
+  ],
+  "windows": [
+    { "id": "second-n", "wall": "n", "at": 1.65, "width": 1.5, "sill": 0.9, "height": 1.5 },
+    { "id": "kitchen-n", "wall": "n", "at": 7.0, "width": 1.2, "sill": 1.0, "height": 1.2 },
+    { "id": "dining-e", "wall": "e", "at": 3.6, "width": 1.5, "sill": 0.9, "height": 1.5 },
+    { "id": "master-s", "wall": "s-master", "at": 1.8, "width": 1.8, "sill": 0.5, "height": 1.8 },
+    { "id": "bath-w", "wall": "w", "at": 3.8, "width": 0.6, "sill": 1.4, "height": 0.8 },
+    { "id": "bal-s", "wall": "bal-s", "at": 2.4, "width": 4.4, "sill": 1.0, "height": 1.6 },
+    { "id": "bal-e", "wall": "bal-e", "at": 0.7, "width": 1.0, "sill": 1.0, "height": 1.6 },
+    { "id": "bal-w", "wall": "bal-w", "at": 0.7, "width": 1.0, "sill": 1.0, "height": 1.6 }
+  ],
+  "fixtures": [
+    { "id": "fridge", "kind": "fridge", "name": "冰箱", "x": 6.13, "z": 0.5, "w": 0.91, "d": 0.74, "h": 1.74, "rot": 0 },
+    { "id": "counter-n", "kind": "counter", "name": "橱柜", "x": 7.44, "z": 0.42, "w": 1.68, "d": 0.6, "h": 0.9, "rot": 0 },
+    { "id": "counter-e", "kind": "counter", "name": "橱柜", "x": 7.98, "z": 1.33, "w": 1.22, "d": 0.6, "h": 0.9, "rot": -90 },
+    { "id": "shower", "kind": "shower", "name": "淋浴", "x": 0.57, "z": 4.09, "w": 0.9, "d": 0.9, "h": 1.9, "rot": 0 },
+    { "id": "toilet", "kind": "toilet", "name": "马桶", "x": 1.05, "z": 3.4, "w": 0.4, "d": 0.66, "h": 0.78, "rot": 0 },
+    { "id": "basin", "kind": "basin", "name": "洗手台", "x": 1.78, "z": 3.29, "w": 0.6, "d": 0.46, "h": 0.85, "rot": 0 },
+    { "id": "shoe", "kind": "shoe", "name": "鞋柜", "x": 3.54, "z": 0.75, "w": 1.2, "d": 0.36, "h": 1.05, "rot": 90 },
+    { "id": "washer", "kind": "washer", "name": "洗衣机", "x": 7.98, "z": 9.36, "w": 0.6, "d": 0.6, "h": 0.85, "rot": -90 }
+  ]
+}

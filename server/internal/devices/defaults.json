@@ -1,0 +1,25 @@
+{
+  "chengdu-89": [
+    { "id": "light-living", "kind": "light", "name": "客厅主灯", "room": "living", "x": 6.0, "y": 2.72, "z": 6.2, "topic": "home/lighting/living/light_1" },
+    { "id": "light-dining", "kind": "light", "name": "餐厅吊灯", "room": "living", "x": 6.4, "y": 2.72, "z": 3.5, "topic": "home/lighting/living/light_2" },
+    { "id": "light-master", "kind": "light", "name": "主卧吸顶灯", "room": "master", "x": 1.8, "y": 2.72, "z": 6.5, "topic": "home/lighting/master/light_1" },
+    { "id": "light-second", "kind": "light", "name": "次卧吸顶灯", "room": "second", "x": 1.65, "y": 2.72, "z": 1.5, "topic": "home/lighting/second/light_1" },
+    { "id": "light-kitchen", "kind": "light", "name": "厨房灯", "room": "kitchen", "x": 7.0, "y": 2.72, "z": 1.15, "topic": "home/lighting/kitchen/light_1" },
+    { "id": "light-bath", "kind": "light", "name": "卫生间灯", "room": "bath", "x": 1.3, "y": 2.72, "z": 3.8, "topic": "home/lighting/bath/light_1" },
+    { "id": "light-entry", "kind": "light", "name": "玄关灯", "room": "entry", "x": 4.45, "y": 2.72, "z": 0.8, "topic": "home/lighting/entry/light_1" },
+    { "id": "light-balcony", "kind": "light", "name": "阳台灯", "room": "balcony", "x": 6.0, "y": 2.72, "z": 9.1, "topic": "home/lighting/balcony/light_1" },
+    { "id": "ac-living", "kind": "ac", "name": "客厅空调", "room": "living", "x": 8.28, "y": 2.3, "z": 6.6, "rot": -90, "topic": "home/climate/living/ac_1" },
+    { "id": "ac-master", "kind": "ac", "name": "主卧空调", "room": "master", "x": 0.12, "y": 2.3, "z": 6.4, "rot": 90, "topic": "home/climate/master/ac_1" },
+    { "id": "ac-second", "kind": "ac", "name": "次卧空调", "room": "second", "x": 0.12, "y": 2.3, "z": 2.0, "rot": 90, "topic": "home/climate/second/ac_1" },
+    { "id": "lock-entry", "kind": "lock", "name": "入户门锁", "room": "entry", "door": "entry", "x": 4.85, "y": 1.0, "z": 0.12, "topic": "home/security/entry/lock_1" },
+    { "id": "curtain-living", "kind": "curtain", "name": "客厅窗帘", "room": "living", "x": 6.0, "y": 0, "z": 8.24, "rot": 180, "width": 2.9, "topic": "home/covers/living/curtain_1" },
+    { "id": "curtain-master", "kind": "curtain", "name": "主卧窗帘", "room": "master", "x": 1.8, "y": 0, "z": 8.24, "rot": 180, "width": 2.3, "topic": "home/covers/master/curtain_1" },
+    { "id": "vacuum", "kind": "vacuum", "name": "扫地机器人", "room": "living", "x": 8.12, "y": 0, "z": 4.9, "rot": -90, "topic": "home/cleaning/living/vacuum_1" },
+    { "id": "sensor-living", "kind": "sensor", "name": "客厅温湿度", "room": "living", "x": 3.66, "y": 1.0, "z": 7.4, "rot": 90, "topic": "home/environment/living/temp_sensor_1", "state": { "temp": 25.6, "humidity": 62 } },
+    { "id": "sensor-master", "kind": "sensor", "name": "主卧温湿度", "room": "master", "x": 0.12, "y": 1.0, "z": 5.2, "rot": 90, "topic": "home/environment/master/temp_sensor_1", "state": { "temp": 25.1, "humidity": 60 } },
+    { "id": "sensor-second", "kind": "sensor", "name": "次卧温湿度", "room": "second", "x": 3.24, "y": 1.0, "z": 0.8, "rot": -90, "topic": "home/environment/second/temp_sensor_1", "state": { "temp": 24.6, "humidity": 61 } },
+    { "id": "sensor-kitchen", "kind": "sensor", "name": "厨房温湿度", "room": "kitchen", "x": 5.66, "y": 1.0, "z": 1.7, "rot": 90, "topic": "home/environment/kitchen/temp_sensor_1", "state": { "temp": 25.9, "humidity": 63 } },
+    { "id": "sensor-outdoor", "kind": "sensor", "name": "室外温湿度", "room": "outdoors", "x": 8.5, "y": 1.0, "z": 9.3, "rot": -90, "topic": "home/environment/outdoors/temp_sensor_1", "state": { "temp": 22.0, "humidity": 70 } },
+    { "id": "sensor-bath", "kind": "sensor", "name": "卫生间温湿度", "room": "bath", "x": 2.34, "y": 1.0, "z": 3.3, "rot": -90, "topic": "home/environment/bath/temp_sensor_1", "state": { "temp": 24.8, "humidity": 66 } }
+  ]
+}

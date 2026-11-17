@@ -1,0 +1,20 @@
+Polyfork Open Plan kit (https://polyfork.dev), used under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/).
+Files renamed; otherwise unmodified.
+
+Sofa by Polyfork (https://polyfork.dev/asset/sofa-9c0e7e), CC BY 4.0
+Low Media Unit by Polyfork (https://polyfork.dev/asset/low-media-unit-645e61), CC BY 4.0
+Wool Rug by Polyfork (https://polyfork.dev/asset/wool-rug-ab2bd1), CC BY 4.0
+Bed by Polyfork (https://polyfork.dev/asset/bed-6e10e8), CC BY 4.0
+Wardrobe by Polyfork (https://polyfork.dev/asset/wardrobe-f3b2f2), CC BY 4.0
+Office Desk by Polyfork (https://polyfork.dev/asset/office-desk-021eb3), CC BY 4.0
+Alcove Bookcase by Polyfork (https://polyfork.dev/asset/alcove-bookcase-83894d), CC BY 4.0
+Lounge Armchair by Polyfork (https://polyfork.dev/asset/lounge-armchair-5a72ca), CC BY 4.0
+Dining Table by Polyfork (https://polyfork.dev/asset/dining-table-7af83a), CC BY 4.0
+Dining Chair by Polyfork (https://polyfork.dev/asset/dining-chair-530532), CC BY 4.0
+Arc Floor Lamp by Polyfork (https://polyfork.dev/asset/arc-floor-lamp-fa0b5f), CC BY 4.0
+Chest of Drawers by Polyfork (https://polyfork.dev/asset/chest-of-drawers-cbe3e7), CC BY 4.0
+Toilet by Polyfork (https://polyfork.dev/asset/toilet-2edbd9), CC BY 4.0
+Vanity Basin Unit by Polyfork (https://polyfork.dev/asset/vanity-basin-unit-3becd9), CC BY 4.0
+Shower Enclosure by Polyfork (https://polyfork.dev/asset/shower-enclosure-a50c16), CC BY 4.0
+Base Cabinet Run by Polyfork (https://polyfork.dev/asset/base-cabinet-run-71d050), CC BY 4.0
+Fridge Freezer by Polyfork (https://polyfork.dev/asset/fridge-freezer-fb9b5a), CC BY 4.0
