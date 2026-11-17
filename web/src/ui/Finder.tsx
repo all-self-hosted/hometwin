@@ -32,7 +32,7 @@ export function Finder() {
     if (!say.trim() || busy) return;
     setBusy(true);
     try {
-      const r = await api<Found>('POST', '/api/catalog/find', { text: say });
+      const r = await api<Found>('POST', 'api/catalog/find', { text: say });
       setFound(r);
       const sel = useStore.getState().sel;
       setRoom(r.room || (sel?.kind === 'room' ? sel.id : ''));
@@ -47,7 +47,7 @@ export function Finder() {
   const put = async (h: Hit) => {
     setAdding(h.id);
     try {
-      const r = await api<{ product: Product; library: Product[] }>('POST', '/api/catalog/add', { id: h.id });
+      const r = await api<{ product: Product; library: Product[] }>('POST', 'api/catalog/add', { id: h.id });
       useStore.setState({ library: r.library });
       useStore.getState().place(r.product, room ? roomCentre(room) : undefined);
       const where = rooms.find((x) => x.id === room)?.name;

@@ -5,7 +5,7 @@ import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { toast } from 'sonner';
 import { useFrame, useThree, type ThreeEvent } from '@react-three/fiber';
 import * as THREE from 'three';
-import type { Home } from '@/api';
+import { rel, type Home } from '@/api';
 import { swingArc } from '@/geom';
 import { useStore } from '@/store';
 import { buildShell, setDoorOpen } from '@/three/shell';
@@ -14,17 +14,17 @@ import { fitted, kitUrl, prop } from '@/three/models';
 import { invalidateShadows } from './shadows';
 
 const PROPS: [string, number, number, number][] = [
-  ['/models/plant-tall.glb', 3.95, 9.45, 0],
-  ['/models/plant-small.glb', 4.35, 9.5, 0.6],
-  ['/models/plant-tall.glb', 8.0, 2.55, 1.2],
-  ['/models/plant-small.glb', 0.35, 7.95, 2],
+  ['models/plant-tall.glb', 3.95, 9.45, 0],
+  ['models/plant-small.glb', 4.35, 9.5, 0.6],
+  ['models/plant-tall.glb', 8.0, 2.55, 1.2],
+  ['models/plant-small.glb', 0.35, 7.95, 2],
 ];
 
 const gltf = new GLTFLoader();
 
 /** The home's scanned model, cut at the cut height like the walls. */
 function loadScan(url: string, cut: number): Promise<THREE.Group> {
-  return new Promise((resolve, reject) => gltf.load(url, (g) => {
+  return new Promise((resolve, reject) => gltf.load(rel(url), (g) => {
     const plane = new THREE.Plane(new THREE.Vector3(0, -1, 0), cut);
     g.scene.traverse((o) => {
       const m = o as THREE.Mesh;

@@ -66,7 +66,7 @@ function save() {
     pendingSave = false;
     const { items, rev } = useStore.getState();
     try {
-      const r = await api<{ layout: Layout; warnings: Warning[] }>('PUT', '/api/layout', { items, base: rev });
+      const r = await api<{ layout: Layout; warnings: Warning[] }>('PUT', 'api/layout', { items, base: rev });
       useStore.setState({ rev: r.layout.rev, warnings: r.warnings ?? [] });
     } catch (e) {
       if (e instanceof ApiError && e.status === 409) {
@@ -86,12 +86,12 @@ if (typeof window !== 'undefined') {
     if (!saveTimer || !pendingSave) return;
     clearTimeout(saveTimer);
     const { items, rev } = useStore.getState();
-    fetch('/api/layout', { method: 'PUT', keepalive: true, headers: { 'Content-Type': 'application/json', 'X-Tab': TAB }, body: JSON.stringify({ items, base: rev }) });
+    fetch('api/layout', { method: 'PUT', keepalive: true, headers: { 'Content-Type': 'application/json', 'X-Tab': TAB }, body: JSON.stringify({ items, base: rev }) });
   });
 }
 
 async function refreshWarnings() {
-  const r = await get<{ warnings: Warning[] }>('/api/layout');
+  const r = await get<{ warnings: Warning[] }>('api/layout');
   useStore.setState({ warnings: r.warnings ?? [] });
 }
 
@@ -105,7 +105,7 @@ function liveCheck() {
     checking = true;
     try {
       const moved = items.map((it) => (it.id === drag.id ? { ...it, x: drag.x, z: drag.z, rot: drag.rot } : it));
-      const r = await api<{ warnings: Warning[] }>('POST', '/api/layout/check', { items: moved });
+      const r = await api<{ warnings: Warning[] }>('POST', 'api/layout/check', { items: moved });
       if (useStore.getState().drag) useStore.setState({ dragWarnings: r.warnings ?? [] });
     } catch { /* the next move tries again */ } finally {
       checking = false;
@@ -180,7 +180,7 @@ export const useStore = create<State>((set, getState) => ({
     const before = getState().devices[id];
     if (before) set((s) => ({ devices: { ...s.devices, [id]: { ...before, state: { ...before.state, ...patch } } } }));
     try {
-      const d = await api<Device>('POST', `/api/devices/${id}/command`, { patch, confirm });
+      const d = await api<Device>('POST', `api/devices/${id}/command`, { patch, confirm });
       set((s) => ({ devices: { ...s.devices, [id]: d } }));
       return true;
     } catch (e) {
@@ -204,18 +204,18 @@ export const useConfirm = create<{ text: string | null; yes: (() => void) | null
 
 export async function boot() {
   const [home, lay, lib] = await Promise.all([
-    get<Home>('/api/home'),
-    get<{ layout: Layout; warnings: Warning[] }>('/api/layout'),
-    get<Product[]>('/api/library'),
+    get<Home>('api/home'),
+    get<{ layout: Layout; warnings: Warning[] }>('api/layout'),
+    get<Product[]>('api/library'),
   ]);
-  get<Violation[]>('/api/constraints').then((c) => useStore.setState({ constraints: c ?? [] })).catch(() => {});
+  get<Violation[]>('api/constraints').then((c) => useStore.setState({ constraints: c ?? [] })).catch(() => {});
   useStore.setState({ home, items: lay.layout.items, rev: lay.layout.rev, warnings: lay.warnings ?? [], library: lib ?? [] });
   connect();
 }
 
 let retry = 500;
 function connect() {
-  const ws = new WebSocket(`${location.protocol === 'https:' ? 'wss' : 'ws'}://${location.host}/api/ws`);
+  const ws = new WebSocket(new URL('api/ws', location.href).href.replace(/^http/, 'ws'));
   ws.onopen = () => { retry = 500; useStore.setState({ connected: true }); };
   ws.onclose = () => {
     useStore.setState({ connected: false });

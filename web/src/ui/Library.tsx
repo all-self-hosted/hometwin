@@ -48,7 +48,7 @@ function Manual({ onDone }: { onDone(p: Product): void }) {
     e.preventDefault();
     setBusy(true);
     try {
-      const r = await api<{ product: Product; library: Product[] }>('POST', '/api/furniture/manual', { name: f.name, type: f.type, w: Number(f.w), d: Number(f.d), h: Number(f.h), colorHex: f.color });
+      const r = await api<{ product: Product; library: Product[] }>('POST', 'api/furniture/manual', { name: f.name, type: f.type, w: Number(f.w), d: Number(f.d), h: Number(f.h), colorHex: f.color });
       useStore.setState({ library: r.library });
       onDone(r.product);
     } catch (err) {
@@ -95,7 +95,7 @@ export function Library() {
     setBusy(true);
     setLast(null);
     try {
-      const r = await api<{ product: Product; library: Product[] }>('POST', '/api/furniture/import', { url });
+      const r = await api<{ product: Product; library: Product[] }>('POST', 'api/furniture/import', { url });
       setLast(r.product);
       useStore.setState({ library: r.library });
       setUrl('');
@@ -106,7 +106,7 @@ export function Library() {
     }
   };
   const drop = async (i: number) => {
-    const lib = await api<Product[]>('DELETE', `/api/library/${i}`);
+    const lib = await api<Product[]>('DELETE', `api/library/${i}`);
     useStore.setState({ library: lib });
   };
   const putIn = (p: Product) => {

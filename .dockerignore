@@ -1,0 +1,11 @@
+.git
+.github
+data
+docs
+**/node_modules
+web/dist
+server/bin
+server/web/dist/*
+!server/web/dist/.keep
+server/internal/*/testdata/private
+server/internal/*/*_private_test.go

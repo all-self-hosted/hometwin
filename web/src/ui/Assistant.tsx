@@ -109,31 +109,31 @@ export function AssistantPanel() {
   const stop = useRef<AbortController | null>(null);
 
   const loadList = async () => {
-    const list = await get<Conv[]>('/api/assistant/conversations');
+    const list = await get<Conv[]>('api/assistant/conversations');
     setConvs(list ?? []);
     return list ?? [];
   };
   const open = async (id: string) => {
     setCur(id);
-    const c = await get<{ messages: Msg[] }>(`/api/assistant/conversations/${id}`);
+    const c = await get<{ messages: Msg[] }>(`api/assistant/conversations/${id}`);
     setMsgs(c.messages ?? []);
   };
   useEffect(() => {
-    get<Status>('/api/assistant/status').then(setStatus).catch(() => setStatus({ configured: false, model: '', examples: [], notice: '家庭助手没有接上' }));
+    get<Status>('api/assistant/status').then(setStatus).catch(() => setStatus({ configured: false, model: '', examples: [], notice: '家庭助手没有接上' }));
     loadList().then((l) => { if (l[0]) open(l[0].id); });
     return () => stop.current?.abort();
   }, []);
   useEffect(() => { end.current?.scrollIntoView({ block: 'end' }); }, [msgs]);
 
   const fresh = async () => {
-    const c = await api<{ id: string }>('POST', '/api/assistant/conversations');
+    const c = await api<{ id: string }>('POST', 'api/assistant/conversations');
     setCur(c.id);
     setMsgs([]);
     loadList();
     return c.id;
   };
   const drop = async (id: string) => {
-    await api('DELETE', `/api/assistant/conversations/${id}`);
+    await api('DELETE', `api/assistant/conversations/${id}`);
     const l = await loadList();
     if (id === cur) {
       if (l[0]) open(l[0].id);
@@ -153,7 +153,7 @@ export function AssistantPanel() {
     const ctl = new AbortController();
     stop.current = ctl;
     try {
-      const res = await fetch(`/api/assistant/conversations/${id}/messages`, {
+      const res = await fetch(`api/assistant/conversations/${id}/messages`, {
         method: 'POST', headers: { 'Content-Type': 'application/json', 'X-Tab': TAB }, body: JSON.stringify({ text: q }), signal: ctl.signal,
       });
       if (!res.ok) {

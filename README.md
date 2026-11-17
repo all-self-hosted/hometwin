@@ -8,7 +8,20 @@ The home is also kept as a knowledge graph with an ontology in CortexDB (rooms, 
 
 ## Run
 
-You need Go 1.27, Node 22 or newer, and optionally Blender (it generates the furniture models; without it the browser builds its own).
+With Docker (amd64 or arm64, a Raspberry Pi or a NAS is fine):
+
+```sh
+docker run -d --name hometwin -p 6417:6417 -v hometwin:/data \
+  -e HOMETWIN_PASSWORD=change-me ghcr.io/all-self-hosted/hometwin
+```
+
+Open http://<that machine>:6417. Settings below go in as `-e` variables; for Home Assistant add `-e HA_URL=http://<ha>:8123 -e HA_TOKEN=<long-lived token>`. Images are tagged by release (`0.1.0`, `0.1`, `latest`) and `edge` follows `main`. Blender is not in the image; the browser builds the furniture models instead.
+
+With Home Assistant OS or Supervised, install the add-on instead: add `https://github.com/all-self-hosted/hometwin-addon` under Settings → Add-ons → Add-on store → ⋮ → Repositories. It opens in HA's sidebar and connects to that HA by itself, with no token to make.
+
+Ready-made binaries for Linux, macOS and Windows are on the releases page; run one with `-http 0.0.0.0:6417` to reach it from other machines.
+
+From source you need Go 1.27, Node 22 or newer, and optionally Blender (it generates the furniture models; without it the browser builds its own).
 
 ```sh
 scripts/build.sh                      # builds web/ and embeds it in server/bin/hometwin

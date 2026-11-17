@@ -61,8 +61,12 @@ export class ApiError extends Error {
   constructor(public status: number, message: string, public body: any) { super(message); }
 }
 
+/** A server path made relative to the page, so the app also works under a prefix (Home
+ * Assistant's ingress serves it at /api/hassio_ingress/<token>/). */
+export const rel = (p: string): string => (p.startsWith('/') && !p.startsWith('//') ? p.slice(1) : p);
+
 export async function api<T>(method: string, path: string, body?: unknown): Promise<T> {
-  const res = await fetch(path, {
+  const res = await fetch(rel(path), {
     method,
     headers: { 'Content-Type': 'application/json', 'X-Tab': TAB },
     body: body === undefined ? undefined : JSON.stringify(body),

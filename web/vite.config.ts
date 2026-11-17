@@ -12,5 +12,7 @@ export default defineConfig({
     // `go run ./cmd/hometwin` in server/ serves the API on :6417
     proxy: { '/api': { target: 'http://127.0.0.1:6417', ws: true } },
   },
+  // relative asset paths, so the build also works under a prefix (Home Assistant ingress)
+  base: './',
   build: { chunkSizeWarningLimit: 1800 },
 });

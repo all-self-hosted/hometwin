@@ -31,7 +31,7 @@ function Overlay({ job, focus }: { job: ScanJob; focus: string | null }) {
   const font = 0.26;
   return (
     <svg viewBox={`${v.x0 - 0.3} ${v.z0 - 0.3} ${W + 0.6} ${H + 0.6}`} className="block h-full w-full" preserveAspectRatio="xMidYMid meet" role="img" aria-label="从扫描读出的户型叠在实景俯视图上">
-      <image href={`/api/scan/${job.id}/top.png`} x={v.x0} y={v.z0} width={W} height={H} preserveAspectRatio="none" />
+      <image href={`api/scan/${job.id}/top.png`} x={v.x0} y={v.z0} width={W} height={H} preserveAspectRatio="none" />
       {h.rooms.map((rm) => {
         const hot = focus === rm.id;
         const c = rm.poly.reduce((s, p) => [s[0] + p[0] / rm.poly.length, s[1] + p[1] / rm.poly.length], [0, 0]);
@@ -80,13 +80,13 @@ export function ScanImport({ onSwitch, onReset }: { onSwitch: (h: { id: string; 
   useEffect(() => {
     let id: string | null = null;
     try { id = sessionStorage.getItem(SCAN_KEEP); } catch { /* private mode */ }
-    if (id) get<ScanJob>(`/api/scan/${id}`).then(setJob).catch(() => setJob(null));
+    if (id) get<ScanJob>(`api/scan/${id}`).then(setJob).catch(() => setJob(null));
   }, []);
   useEffect(() => {
     if (!job || job.status !== 'running') return;
     const t = setInterval(async () => {
       setNow(Date.now());
-      try { setJob(await get<ScanJob>(`/api/scan/${job.id}`)); } catch { /* next tick */ }
+      try { setJob(await get<ScanJob>(`api/scan/${job.id}`)); } catch { /* next tick */ }
     }, 1200);
     return () => clearInterval(t);
   }, [job?.id, job?.status]); // eslint-disable-line react-hooks/exhaustive-deps
@@ -97,7 +97,7 @@ export function ScanImport({ onSwitch, onReset }: { onSwitch: (h: { id: string; 
     fd.append('link', link);
     if (plan) fd.append('image', plan);
     try {
-      const res = await fetch('/api/scan', { method: 'POST', body: fd, headers: { 'X-Tab': TAB } });
+      const res = await fetch('api/scan', { method: 'POST', body: fd, headers: { 'X-Tab': TAB } });
       const body = await res.json();
       if (!res.ok) throw new Error(body?.error ?? `出错了（${res.status}）`);
       setJob(body);
@@ -107,7 +107,7 @@ export function ScanImport({ onSwitch, onReset }: { onSwitch: (h: { id: string; 
   const confirm = async () => {
     if (!job) return;
     try {
-      const r = await api<{ home: { id: string; name: string } }>('POST', `/api/scan/${job.id}/confirm`);
+      const r = await api<{ home: { id: string; name: string } }>('POST', `api/scan/${job.id}/confirm`);
       try { sessionStorage.removeItem(SCAN_KEEP); } catch { /* private mode */ }
       onSwitch(r.home);
     } catch (e) { toast.error(e instanceof ApiError ? e.message : (e as Error).message); }

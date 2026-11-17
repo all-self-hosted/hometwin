@@ -17,7 +17,7 @@ export function DevicesPanel() {
   const all = Object.values(devices);
   const on = all.filter((d) => isOn(d) && d.kind !== 'sensor').length;
   const scene = async (name: string, label: string) => {
-    await api('POST', `/api/sim/${name}`);
+    await api('POST', `api/sim/${name}`);
     toast(`模拟：${label}`);
   };
   return (
@@ -74,9 +74,9 @@ export function AutoPanel() {
   const done = proposals.filter((p) => p.status !== 'pending').slice(0, 8);
   const s = useStore.getState();
   const decide = async (id: string, ok: boolean) => {
-    try { await api('POST', `/api/proposals/${id}/${ok ? 'approve' : 'reject'}`); } catch (e) { toast.error((e as Error).message); }
+    try { await api('POST', `api/proposals/${id}/${ok ? 'approve' : 'reject'}`); } catch (e) { toast.error((e as Error).message); }
   };
-  const setLevel = (id: string, level: Level, enabled: boolean) => api('PUT', `/api/automations/${id}`, { level, enabled }).catch((e) => toast.error(e.message));
+  const setLevel = (id: string, level: Level, enabled: boolean) => api('PUT', `api/automations/${id}`, { level, enabled }).catch((e) => toast.error(e.message));
   return (
     <Panel wide title="自动化" sub="每条都有授权等级；开锁这类事一定要你批准" icon={<span className="grid size-9 place-items-center rounded-xl bg-[#fff1df] text-primary"><Workflow className="size-5" /></span>} onClose={() => s.setPanel(null)}>
       <div className="grid gap-3">
@@ -106,7 +106,7 @@ export function AutoPanel() {
                   <small className="block truncate text-[11.5px] text-muted-foreground">{a.when} · {a.actions.length} 个动作</small>
                 </div>
                 {a.trigger.kind === 'manual' && (
-                  <button type="button" onClick={() => api('POST', `/api/automations/${a.id}/run`).catch((e) => toast.error(e.message))} className="flex h-8 items-center gap-1 rounded-lg bg-foreground px-2.5 text-[12px] font-bold text-white"><Play className="size-3.5" />运行</button>
+                  <button type="button" onClick={() => api('POST', `api/automations/${a.id}/run`).catch((e) => toast.error(e.message))} className="flex h-8 items-center gap-1 rounded-lg bg-foreground px-2.5 text-[12px] font-bold text-white"><Play className="size-3.5" />运行</button>
                 )}
                 <Switch on={a.enabled} onChange={(v) => setLevel(a.id, a.level, v)} label="启用" />
               </div>
@@ -172,12 +172,12 @@ export function TwinPanel() {
   const [examples, setExamples] = useState<string[]>([]);
   const s = useStore.getState();
   useEffect(() => {
-    get<TwinInfo>('/api/twin').then(setInfo);
-    get<{ examples: string[] }>('/api/graph').then((g) => setExamples(g.examples));
+    get<TwinInfo>('api/twin').then(setInfo);
+    get<{ examples: string[] }>('api/graph').then((g) => setExamples(g.examples));
   }, []);
   const ask = async (text: string) => {
     setQ(text);
-    const a = await get<Answer>(`/api/graph/ask?q=${encodeURIComponent(text)}`);
+    const a = await get<Answer>(`api/graph/ask?q=${encodeURIComponent(text)}`);
     setAnswer(a);
     useStore.setState({ highlight: a.nodes });
     const room = a.nodes.find((n) => n.startsWith('room:'));

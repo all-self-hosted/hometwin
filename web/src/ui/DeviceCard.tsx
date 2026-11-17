@@ -85,7 +85,7 @@ function ACControls({ d }: { d: Device }) {
   // the twin's room model: how long to the temperature asked for
   useEffect(() => {
     let alive = true;
-    const load = () => get<Prediction>(`/api/predict/${d.id}?target=${target}&mode=${s.mode ?? 'cool'}`).then((p) => alive && setPred(p)).catch(() => {});
+    const load = () => get<Prediction>(`api/predict/${d.id}?target=${target}&mode=${s.mode ?? 'cool'}`).then((p) => alive && setPred(p)).catch(() => {});
     load();
     const t = setInterval(load, 5000);
     return () => { alive = false; clearInterval(t); };

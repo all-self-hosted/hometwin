@@ -3,9 +3,9 @@
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
-import type { ModelInfo, Product } from '@/api';
+import { rel, type ModelInfo, type Product } from '@/api';
 
-const draco = new DRACOLoader().setDecoderPath('/draco/').setDecoderConfig({ type: 'js' });
+const draco = new DRACOLoader().setDecoderPath('draco/').setDecoderConfig({ type: 'js' });
 const loader = new GLTFLoader().setDRACOLoader(draco);
 
 const scenes = new Map<string, Promise<THREE.Group | null>>();
@@ -14,7 +14,7 @@ let unavailable = false;
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
 async function info(p: Product, retry = false): Promise<ModelInfo> {
-  const res = await fetch(`/api/models${retry ? '?retry=1' : ''}`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(p) });
+  const res = await fetch(`api/models${retry ? '?retry=1' : ''}`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(p) });
   if (!res.ok) return { available: false };
   return res.json();
 }
@@ -36,7 +36,7 @@ async function urlFor(p: Product): Promise<string | null> {
 }
 
 function load(url: string): Promise<THREE.Group> {
-  return new Promise((resolve, reject) => loader.load(url, (g) => resolve(g.scene), undefined, reject));
+  return new Promise((resolve, reject) => loader.load(rel(url), (g) => resolve(g.scene), undefined, reject));
 }
 
 /** The generated model of a product, sized and lit for the scene, or null. */
@@ -67,7 +67,7 @@ export function generated(p: Product): Promise<THREE.Group | null> {
 const KIT = new Set(['sofa', 'tvbench', 'rug', 'bed', 'wardrobe', 'desk', 'bookcase', 'armchair', 'table', 'chair', 'lamp', 'drawers', 'toilet', 'basin', 'shower', 'counter', 'fridge']);
 
 /** The kit's model for a kind of furniture or fixture, if it has one. */
-export const kitUrl = (kind: string): string | null => (KIT.has(kind) ? `/models/polyfork/${kind}.glb` : null);
+export const kitUrl = (kind: string): string | null => (KIT.has(kind) ? `models/polyfork/${kind}.glb` : null);
 
 /** A model stretched to w × h × d metres, standing on the origin at its floor centre. */
 export async function fitted(url: string, w: number, h: number, d: number): Promise<THREE.Group | null> {

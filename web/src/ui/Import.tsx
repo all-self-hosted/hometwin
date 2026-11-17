@@ -50,7 +50,7 @@ function Overlay({ job, focus }: { job: Job; focus: string | null }) {
   };
   return (
     <svg viewBox={`${x0} ${y0} ${w} ${h}`} className="block h-full w-full" preserveAspectRatio="xMidYMid meet" role="img" aria-label="识别出的户型叠在原图上">
-      <image href={`/api/floorplan/${job.id}/image`} x={0} y={0} width={f.size[0]} height={f.size[1]} />
+      <image href={`api/floorplan/${job.id}/image`} x={0} y={0} width={f.size[0]} height={f.size[1]} />
       <rect x={x0} y={y0} width={w} height={h} fill="white" opacity={0.35} />
       {d.home.rooms.map((r) => {
         const pts = r.poly.map(px);
@@ -114,21 +114,21 @@ export function ImportPanel() {
   // VR import is off unless the server was started with -vr-import
   const [vr, setVr] = useState(false);
   useEffect(() => {
-    get<{ vrImport: boolean }>('/api/features').then((f) => setVr(f.vrImport)).catch(() => setVr(false));
+    get<{ vrImport: boolean }>('api/features').then((f) => setVr(f.vrImport)).catch(() => setVr(false));
   }, []);
 
   useEffect(() => {
-    get<Status>('/api/floorplan').then(setStatus).catch((e) => toast.error((e as Error).message));
+    get<Status>('api/floorplan').then(setStatus).catch((e) => toast.error((e as Error).message));
     let id: string | null = null;
     try { id = sessionStorage.getItem(KEEP); } catch { /* private mode */ }
-    if (id) get<Job>(`/api/floorplan/${id}`).then(setJob).catch(() => setJob(null));
+    if (id) get<Job>(`api/floorplan/${id}`).then(setJob).catch(() => setJob(null));
   }, []);
   // follow a running import
   useEffect(() => {
     if (!job || job.status !== 'running') return;
     const t = setInterval(async () => {
       setNow(Date.now());
-      try { setJob(await get<Job>(`/api/floorplan/${job.id}`)); } catch { /* the next tick tries again */ }
+      try { setJob(await get<Job>(`api/floorplan/${job.id}`)); } catch { /* the next tick tries again */ }
     }, 1500);
     return () => clearInterval(t);
   }, [job?.id, job?.status]);
@@ -140,7 +140,7 @@ export function ImportPanel() {
     const fd = new FormData();
     fd.append('image', file);
     try {
-      const res = await fetch('/api/floorplan', { method: 'POST', body: fd, headers: { 'X-Tab': TAB } });
+      const res = await fetch('api/floorplan', { method: 'POST', body: fd, headers: { 'X-Tab': TAB } });
       const body = await res.json();
       if (!res.ok) throw new Error(body?.error ?? `出错了（${res.status}）`);
       setJob(body);
@@ -148,14 +148,14 @@ export function ImportPanel() {
   };
   const retry = async () => {
     if (!job) return;
-    try { setJob(await api<Job>('POST', `/api/floorplan/${job.id}/retry`)); } catch (e) { toast.error((e as Error).message); }
+    try { setJob(await api<Job>('POST', `api/floorplan/${job.id}/retry`)); } catch (e) { toast.error((e as Error).message); }
   };
   // the server restarts on the new home; the page reloads once it answers with it
   const waitFor = async (id: string) => {
     for (let i = 0; i < 120; i++) {
       await new Promise((r) => setTimeout(r, 700));
       try {
-        const h = await get<Home>('/api/home');
+        const h = await get<Home>('api/home');
         if (h.id === id) {
           try { sessionStorage.removeItem(KEEP); } catch { /* private mode */ }
           location.reload();
@@ -169,14 +169,14 @@ export function ImportPanel() {
   const confirm = async () => {
     if (!job) return;
     try {
-      const r = await api<{ home: { id: string; name: string } }>('POST', `/api/floorplan/${job.id}/confirm`);
+      const r = await api<{ home: { id: string; name: string } }>('POST', `api/floorplan/${job.id}/confirm`);
       setSwitching(r.home.name);
       waitFor(r.home.id);
     } catch (e) { toast.error(e instanceof ApiError ? e.message : (e as Error).message); }
   };
   const sample = async () => {
     try {
-      const r = await api<{ home: { id: string; name: string } }>('POST', '/api/floorplan/sample');
+      const r = await api<{ home: { id: string; name: string } }>('POST', 'api/floorplan/sample');
       setSwitching(r.home.name);
       waitFor(r.home.id);
     } catch (e) { toast.error((e as Error).message); }
@@ -239,7 +239,7 @@ export function ImportPanel() {
       ) : (
         <div className="flex min-h-0 flex-1 max-md:flex-col max-md:overflow-y-auto">
           <div className="relative min-h-0 flex-1 bg-white max-md:h-[56dvh] max-md:flex-none">
-            {d ? <Overlay job={job} focus={focus} /> : <img src={preview ?? `/api/floorplan/${job.id}/image`} alt="上传的户型图" className="h-full w-full object-contain opacity-60" />}
+            {d ? <Overlay job={job} focus={focus} /> : <img src={preview ?? `api/floorplan/${job.id}/image`} alt="上传的户型图" className="h-full w-full object-contain opacity-60" />}
             {job.status === 'running' && (
               <div className="absolute inset-x-0 bottom-0 flex items-center gap-2 bg-white/85 px-4 py-2 text-[12.5px] font-bold backdrop-blur">
                 <LoaderCircle className="size-4 animate-spin text-primary" />识别中 · {elapsed} 秒

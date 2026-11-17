@@ -36,10 +36,10 @@ export function HAPanel() {
   const [rooms, setRooms] = useState<Record<string, string>>({});
   const rawStatus = useCallback(async () => {
     try {
-      const s = await get<HAStatus>('/api/ha/status');
+      const s = await get<HAStatus>('api/ha/status');
       setStatus(s);
       setUrl((u) => u || s.url);
-      if (s.connected) setEntities((await get<Entity[]>('/api/ha/entities')) ?? []);
+      if (s.connected) setEntities((await get<Entity[]>('api/ha/entities')) ?? []);
     } catch (e) {
       setStatus({ url: '', connected: false, error: (e as Error).message, entities: 0, mapped: 0 });
     }
@@ -53,7 +53,7 @@ export function HAPanel() {
   const roomName = (id?: string) => (id === 'outdoors' ? '室外' : home.rooms.find((r) => r.id === id)?.name ?? '没认出房间');
   const saveURL = async () => {
     try {
-      await api('PUT', '/api/ha/config', { url });
+      await api('PUT', 'api/ha/config', { url });
       toast.success('已保存，正在连接');
       rawStatus();
     } catch (e) { toast.error((e as Error).message); }
@@ -65,7 +65,7 @@ export function HAPanel() {
     const sameRoom = room === e.suggestion?.room;
     const body: Mapping = { entities: [e.entity_id], kind: e.kind!, name: e.name, room, ...(sameRoom && e.suggestion ? { x: e.suggestion.x, y: e.suggestion.y, z: e.suggestion.z, rot: e.suggestion.rot, takeOver: !!e.suggestion.takeOver } : {}) };
     try {
-      await api('PUT', '/api/ha/mapping', body);
+      await api('PUT', 'api/ha/mapping', body);
       toast.success(`${e.name} 接到了${roomName(room)}`);
       rawStatus();
     } catch (err) { toast.error((err as Error).message); } finally { setBusy(null); }
@@ -73,14 +73,14 @@ export function HAPanel() {
   const unlink = async (e: Entity) => {
     setBusy(e.entity_id);
     try {
-      await api('DELETE', `/api/ha/mapping/${encodeURIComponent(e.entity_id)}`);
+      await api('DELETE', `api/ha/mapping/${encodeURIComponent(e.entity_id)}`);
       rawStatus();
     } catch (err) { toast.error((err as Error).message); } finally { setBusy(null); }
   };
   const auto = async () => {
     setBusy('auto');
     try {
-      const r = await api<{ applied?: number }>('POST', '/api/ha/mapping/auto');
+      const r = await api<{ applied?: number }>('POST', 'api/ha/mapping/auto');
       toast.success(`按建议接入了 ${r?.applied ?? ''} 个设备`);
       rawStatus();
     } catch (err) { toast.error((err as Error).message); } finally { setBusy(null); }
@@ -105,7 +105,7 @@ export function HAPanel() {
           <div className="flex items-center gap-2 text-[12.5px] font-bold">
             <i className={cn('size-2.5 rounded-full', status?.connected ? 'bg-success' : 'bg-warning')} />
             {status ? (status.connected ? `已连接，${status.entities} 个实体，接入了 ${status.mapped} 个` : '没连上') : '查看中…'}
-            <button type="button" onClick={() => api('POST', '/api/ha/reconnect').then(rawStatus).catch((e) => toast.error(e.message))} className="ml-auto flex items-center gap-1 rounded-lg px-2 py-1 text-muted-foreground hover:bg-secondary"><RefreshCw className="size-3.5" />重连</button>
+            <button type="button" onClick={() => api('POST', 'api/ha/reconnect').then(rawStatus).catch((e) => toast.error(e.message))} className="ml-auto flex items-center gap-1 rounded-lg px-2 py-1 text-muted-foreground hover:bg-secondary"><RefreshCw className="size-3.5" />重连</button>
           </div>
           <div className="mt-2 flex gap-2">
             <Input value={url} onChange={(e) => setUrl(e.target.value)} placeholder="http://127.0.0.1:38123" className="h-9 bg-white" />
